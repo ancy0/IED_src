@@ -9,7 +9,6 @@
 #define _DIST_MIN 100 // minimum distance to be measured (unit: mm)
 #define _DIST_MAX 300 // maximum distance to be measured (unit: mm)
 
-
 // global variables
 float timeout; // unit: us
 float dist_min, dist_max, dist_raw, dist_median; // unit: mm
@@ -37,7 +36,6 @@ void setup() {
   dist_median = 0.0;
   readindex = 0;
   
-
 // initialize serial port
   Serial.begin(57600);
 
@@ -76,6 +74,7 @@ void loop(){
         }
       }
     }
+    
     if(n%2 == 1){// return the median value
       int i = n/2;
       dist_median = arr[i];
