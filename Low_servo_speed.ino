@@ -9,7 +9,8 @@
 #define _DUTY_MAX 2399 // servo full counterclockwise position (180 degree)
 
 #define _POS_START (_DUTY_MIN)
-#define _POS_END (_DUTY_MAX)
+#define _POS_END (_DUTY_MAX)//_SERVO_SPEED 3
+//#define _POS_END (_DUTY_NEU) //_SERVO_SPEED 0.3
 
 #define _SERVO_SPEED 3 // servo speed limit (unit: degree/second)
 //#define _SERVO_SPEED 0.3 // servo speed limit (unit: degree/second)
@@ -36,14 +37,10 @@ void setup() {
 // convert angle speed into duty change per interval.
   duty_chg_per_interval = (float)(_DUTY_MAX - _DUTY_MIN) * _SERVO_SPEED / 180 * INTERVAL / 1000;
 
-// remove next three lines after finding answers
-//Serial.print("duty_chg_per_interval:");
-//Serial.println(duty_chg_per_interval);
-//while(1) {}
-
 // initialize variables for servo update.
   pause_time = 1;
-  toggle_interval = (180.0 / _SERVO_SPEED + pause_time) * 1000 / INTERVAL;
+  toggle_interval = (180.0 / _SERVO_SPEED + pause_time) * 1000 / INTERVAL; //_SERVO_SPEED 3
+  //toggle_interval = (90.0 / _SERVO_SPEED + pause_time) * 1000 / INTERVAL; //_SERVO_SPEED 0.3
   toggle_interval_cnt = toggle_interval;
   
 // initialize last sampling time
