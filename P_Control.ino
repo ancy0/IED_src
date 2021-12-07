@@ -12,20 +12,19 @@
 // Framework setting
 #define _DIST_TARGET 255
 #define _DIST_MIN 100
-#define _DIST_MAX 420
+#define _DIST_MAX 430
 
 // Distance sensor
 #define _DIST_ALPHA 0.0
 
 // Servo range
-#define _DUTY_MIN 1114
-#define _DUTY_NEU 1476
-#define _DUTY_MAX 1834
+#define _DUTY_MIN 1280
+#define _DUTY_NEU 1527
+#define _DUTY_MAX 1840
 
 // Servo speed control
 #define _SERVO_ANGLE 30 
-#define _SERVO_SPEED 60 
-#define INTERVAL 20
+#define _SERVO_SPEED 120
 
 // Event periods
 #define _INTERVAL_DIST 30
@@ -33,7 +32,7 @@
 #define _INTERVAL_SERIAL 100
 
 // PID parameters
-#define _KP 2.15
+#define _KP 0.35
 
 //////////////////////
 // global variables //
@@ -62,7 +61,7 @@ int a, b; // unit: mm
 
 // Median
 float dist_median;
-const int n = 3;
+const int n = 4;
 int readindex;
 float arr[n];
 
@@ -99,10 +98,10 @@ void setup() {
   Serial.begin(57600);
 
   a = 69;
-  b = 348;
+  b = 400;
 
   // convert angle speed into duty change per interval
-  duty_chg_per_interval = int((_DUTY_MAX - _DUTY_MIN) * (_SERVO_SPEED /  _SERVO_ANGLE) * (float(INTERVAL) / 1000.0));    //[3159] 서보
+  duty_chg_per_interval = (float)(_DUTY_MAX - _DUTY_MIN) * _SERVO_SPEED / 180 * _INTERVAL_SERVO / 1000;
 }
 
  void loop() {
@@ -169,8 +168,6 @@ void setup() {
       event_serial = false;
       Serial.print("dist_ir:");
       Serial.print(dist_raw);
-      Serial.print(",error:");
-      Serial.print(error_curr);
       Serial.print(",pterm:");
       Serial.print(map(pterm,-1000,1000,510,610));
       Serial.print(",duty_target:");
