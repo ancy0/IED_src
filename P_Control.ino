@@ -141,11 +141,8 @@ void setup() {
     duty_target = _DUTY_NEU + control;
 
     // keep duty_target value within the range of [_DUTY_MIN, _DUTY_MAX]
-     if (duty_target < _DUTY_MIN) {
-      duty_target = _DUTY_MIN;
-    }else if (duty_target > _DUTY_MAX) {
-       duty_target = _DUTY_MAX;
-    }
+     if (duty_target < _DUTY_MIN)duty_target = _DUTY_MIN;
+     if (duty_target > _DUTY_MAX)duty_target = _DUTY_MAX;
  }
    
     if(event_servo) {
